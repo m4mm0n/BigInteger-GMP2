@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;Debug-MemoryLoad;Release-MemoryLoad</Configurations>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="DLLS\mpfr.dll" />
+    <None Remove="DLLS\mpir.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="DLLS\mpfr.dll" />
+    <EmbeddedResource Include="DLLS\mpir.dll" />
+  </ItemGroup>
+
+</Project>
