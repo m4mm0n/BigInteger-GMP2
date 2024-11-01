@@ -160,5 +160,45 @@ namespace BigIntegerGMP2
 
             if (numBits > 0) mpz.urandomb(_value, _randState, (uint)numBits);
         }
+
+        /// <summary>
+        /// Initializes a new instance of the BigInteger class from a uint array.
+        /// </summary>
+        /// <param name="value">The uint array representing the value to initialize.</param>
+        public BigInteger(uint[] value)
+        {
+            try
+            {
+                var byteArray = new byte[value.Length * sizeof(uint)];
+                Buffer.BlockCopy(value, 0, byteArray, 0, byteArray.Length);
+
+                _value = new mpz_t(byteArray);
+                mpz.init(_value);
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException("The value is not in a valid format.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the BigInteger class from an int array.
+        /// </summary>
+        /// <param name="value">The int array representing the value to initialize.</param>
+        public BigInteger(int[] value)
+        {
+            try
+            {
+                var byteArray = new byte[value.Length * sizeof(int)];
+                Buffer.BlockCopy(value, 0, byteArray, 0, byteArray.Length);
+
+                _value = new mpz_t(byteArray);
+                mpz.init(_value);
+            }
+            catch (Exception ex)
+            {
+                throw new FormatException("The value is not in a valid format.", ex);
+            }
+        }
     }
 }

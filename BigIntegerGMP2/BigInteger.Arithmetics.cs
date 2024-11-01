@@ -543,6 +543,21 @@ namespace BigIntegerGMP2
         public uint ModAsUInt32(uint mod) => (uint)mpz.fdiv_ui(this, mod);
 
         /// <summary>
+        /// Calculates the modular inverse of the current BigInteger instance with respect to a specified modulus.
+        /// </summary>
+        /// <param name="mod">The modulus to use in the inversion.</param>
+        /// <returns>A BigInteger representing the modular inverse.</returns>
+        public BigInteger ModInverse(BigInteger mod) => InvertMod(mod);
+
+        /// <summary>
+        /// Raises the current BigInteger instance to the power of the specified BigInteger exponent modulo another BigInteger.
+        /// </summary>
+        /// <param name="exponent">The BigInteger exponent to which to raise the current instance.</param>
+        /// <param name="mod">The modulus to apply after exponentiation.</param>
+        /// <returns>A BigInteger representing the result of raising the current instance to the specified power modulo mod.</returns>
+        public BigInteger ModPow(BigInteger exponent, BigInteger mod) => PowerMod(exponent, mod);
+
+        /// <summary>
         /// Multiplies the current BigInteger instance by another BigInteger.
         /// </summary>
         /// <param name="x">The BigInteger value to multiply by.</param>

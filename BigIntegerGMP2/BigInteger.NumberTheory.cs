@@ -288,5 +288,54 @@ namespace BigIntegerGMP2
         /// <param name="y">The second BigInteger value.</param>
         /// <returns>An integer representing the Hamming distance between x and y.</returns>
         public int HammingDistance(BigInteger x, BigInteger y) => (int)mpz.hamdist(x, y);
+
+        /// <summary>
+        /// Solves a system of simultaneous congruences using the Chinese Remainder Theorem.
+        /// </summary>
+        /// <param name="a">A list of remainders, where each element corresponds to a congruence of the form x ≡ a[i] (mod m[i]).</param>
+        /// <param name="m">A list of moduli, where each element corresponds to a congruence of the form x ≡ a[i] (mod m[i]).</param>
+        /// <returns>A BigInteger representing the solution to the system of congruences.</returns>
+        /// <exception cref="ArgumentException">Thrown if the number of remainders does not match the number of moduli.</exception>
+        public static BigInteger ChineseRemainderTheorem(List<BigInteger> a, List<BigInteger> m)
+        {
+            if (a.Count != m.Count)
+                throw new ArgumentException("The number of elements in a and m must be equal.");
+
+            var M = m.Aggregate(One, (current, modulus) => current * modulus);
+
+            var x = Zero;
+            for (var i = 0; i < a.Count; i++)
+            {
+                var Mi = M / m[i];
+                var yi = Mi.ModInverse(m[i]);
+                var temp = a[i] * Mi * yi;
+                x += temp;
+            }
+
+            return x % M;
+        }
+
+        /// <summary>
+        /// Generates prime numbers up to a given limit using the Sieve of Eratosthenes algorithm.
+        /// </summary>
+        /// <param name="limit">The upper limit (inclusive) for the primes to generate. Default is 1000.</param>
+        /// <returns>An IEnumerable of BigInteger representing all prime numbers up to the given limit.</returns>
+        public static IEnumerable<BigInteger> EratosthenesPrimes(int limit = 1000)
+        {
+            var sieve = new bool[limit + 1];
+            for (var i = 2; i <= limit; i++) sieve[i] = true;
+
+            for (var p = 2; p * p <= limit; p++)
+                if (sieve[p])
+                    for (var i = p * p; i <= limit; i += p)
+                        sieve[i] = false;
+
+            var primes = new List<BigInteger>();
+            for (var i = 2; i <= limit; i++)
+                if (sieve[i])
+                    primes.Add(new BigInteger(i));
+
+            return primes;
+        }
     }
 }
