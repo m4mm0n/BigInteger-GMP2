@@ -1,11 +1,5 @@
 ﻿using BigIntegerGMP2.Internals;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using BigIntegerGMP2.Internals.mpz_t;
-using static BigIntegerGMP2.Native.Mpir.NativeMethods;
 
 namespace BigIntegerGMP2
 {
@@ -13,7 +7,9 @@ namespace BigIntegerGMP2
     {
         #region Private Fields
         private static randstate_t _randState;
-        private static mpz_t _value;
+        private static Random _sysRand;
+        private mpz_t _value;
+        private const string Base64Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
         #endregion
 
         #region Public Properties

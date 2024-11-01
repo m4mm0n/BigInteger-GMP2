@@ -187,7 +187,7 @@ namespace BigIntegerGMP2.Internals.mpz_t
         /// Converts to a <see cref="System.Numerics.BigInteger"/> value.
         /// </summary>
         /// <param name="value">The value.</param>
-        public static explicit operator BigInteger(mpz_t value)
+        public static explicit operator System.Numerics.BigInteger(mpz_t value)
         {
             var Bytes = value.ToByteArray();
 

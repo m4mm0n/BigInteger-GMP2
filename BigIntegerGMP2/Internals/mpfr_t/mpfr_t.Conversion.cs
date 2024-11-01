@@ -130,7 +130,7 @@ namespace BigIntegerGMP2.Internals.mpfr_t
         /// Converts to a <see cref="System.Numerics.BigInteger"/> value.
         /// </summary>
         /// <param name="value">The value.</param>
-        public static explicit operator BigInteger(mpfr_t value)
+        public static explicit operator System.Numerics.BigInteger(mpfr_t value)
         {
             using var Temporary = new mpz_t.mpz_t();
 

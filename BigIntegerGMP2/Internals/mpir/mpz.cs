@@ -267,7 +267,7 @@ namespace BigIntegerGMP2.Internals.mpir
         /// <param name="exp">The exponent.</param>
         public static void get_d_2exp(mpz_t.mpz_t op, out double d, out long exp)
         {
-            d = mpz_get_d_2exp(out mpir_si expStr, ref op.Value);
+            d = mpz_get_d_2exp(out var expStr, ref op.Value);
             exp = (long)expStr;
         }
 
@@ -1342,13 +1342,13 @@ namespace BigIntegerGMP2.Internals.mpir
             if (strBase < 2 || strBase > 62)
                 throw new ArgumentOutOfRangeException(nameof(strBase));
 
-            ulong SizeInDigits = sizeinbase(op, (uint)strBase);
+            var SizeInDigits = sizeinbase(op, (uint)strBase);
             SizeInDigits += 2;
 
-            StringBuilder Data = new StringBuilder((int)SizeInDigits);
+            var Data = new StringBuilder((int)SizeInDigits);
             get_str(Data, strBase, op);
 
-            string Content = Data.ToString();
+            var Content = Data.ToString();
             writer.Write(Content);
 
             return Content.Length;
@@ -1362,7 +1362,7 @@ namespace BigIntegerGMP2.Internals.mpir
         /// <param name="strBase">The digit base.</param>
         public static long inp_str(mpz_t.mpz_t rop, StreamReader reader, int strBase)
         {
-            string Content = reader.ReadToEnd();
+            var Content = reader.ReadToEnd();
 
             mpz_init_set_str(ref rop.Value, Content, (uint)strBase);
 
@@ -1384,10 +1384,10 @@ namespace BigIntegerGMP2.Internals.mpir
         /// <param name="op">The operand.</param>
         public static long out_raw(BinaryWriter writer, mpz_t.mpz_t op)
         {
-            ulong SizeInBits = (ulong)mpz_sizeinbase(ref op.Value, 2);
-            byte[] Content = new byte[(SizeInBits + 7) / 8];
+            var SizeInBits = (ulong)mpz_sizeinbase(ref op.Value, 2);
+            var Content = new byte[(SizeInBits + 7) / 8];
 
-            mpz_export(Content, out size_t countp, -1, (size_t)sizeof(byte), -1, (size_t)0UL, ref op.Value);
+            mpz_export(Content, out var countp, -1, (size_t)sizeof(byte), -1, (size_t)0UL, ref op.Value);
 
             writer.Write(Content);
 
@@ -1401,8 +1401,8 @@ namespace BigIntegerGMP2.Internals.mpir
         /// <param name="reader">The input stream.</param>
         public static long inp_raw(mpz_t.mpz_t rop, BinaryReader reader)
         {
-            int ContentLength = (int)reader.BaseStream.Length;
-            byte[] Content = reader.ReadBytes(ContentLength);
+            var ContentLength = (int)reader.BaseStream.Length;
+            var Content = reader.ReadBytes(ContentLength);
 
             mpz_import(ref rop.Value, (size_t)(ulong)Content.Length, -1, (size_t)sizeof(byte), -1, (size_t)0UL, Content);
 
@@ -1438,7 +1438,7 @@ namespace BigIntegerGMP2.Internals.mpir
         /// <param name="op">The operand.</param>
         public static void export(byte[] rop, out ulong countp, int order, ulong size, int endian, ulong nails, mpz_t.mpz_t op)
         {
-            mpz_export(rop, out size_t countpStruct, order, (size_t)size, endian, (size_t)nails, ref op.Value);
+            mpz_export(rop, out var countpStruct, order, (size_t)size, endian, (size_t)nails, ref op.Value);
             countp = (ulong)countpStruct;
         }
         #endregion
@@ -1521,7 +1521,7 @@ namespace BigIntegerGMP2.Internals.mpir
         /// <param name="op">The operand.</param>
         public static bool odd_p(mpz_t.mpz_t op)
         {
-            bool HasValidLimb = (op.Value.LimbCount != 0) & (op.Value.Limbs != nint.Zero);
+            var HasValidLimb = (op.Value.LimbCount != 0) & (op.Value.Limbs != nint.Zero);
             if (!HasValidLimb)
                 return false;
 
@@ -1534,7 +1534,7 @@ namespace BigIntegerGMP2.Internals.mpir
         /// <param name="op">The operand.</param>
         public static bool even_p(mpz_t.mpz_t op)
         {
-            bool HasValidLimb = (op.Value.LimbCount != 0) & (op.Value.Limbs != nint.Zero);
+            var HasValidLimb = (op.Value.LimbCount != 0) & (op.Value.Limbs != nint.Zero);
             if (!HasValidLimb)
                 return false;
 
