@@ -337,5 +337,29 @@ namespace BigIntegerGMP2
 
             return primes;
         }
+
+        /// <summary>
+        /// Implements the Extended Euclidean Algorithm
+        /// </summary>
+        /// <param name="a">First BigInteger input</param>
+        /// <param name="b">Second BigInteger input</param>
+        /// <returns>A tuple containing the GCD and Bézout coefficients</returns>
+        public static (BigInteger? d, BigInteger? x, BigInteger? y) ExtendedEuclid(BigInteger? a, BigInteger? b)
+        {
+            if (b == 0)
+                return (a, One, Zero);
+            var (d, xx, yy) = ExtendedEuclid(b, a % b);
+            var x = yy;
+            var y = xx - (a / b) * yy;
+            return (d, x, y);
+        }
+
+        /// <summary>
+        /// Computes the modular multiplicative inverse of a modulo n
+        /// </summary>
+        /// <param name="a">Number to find inverse for</param>
+        /// <param name="n">Modulus</param>
+        /// <returns>Modular multiplicative inverse</returns>
+        public static BigInteger? Inverse(BigInteger a, BigInteger n) => ExtendedEuclid(a, n).x;
     }
 }

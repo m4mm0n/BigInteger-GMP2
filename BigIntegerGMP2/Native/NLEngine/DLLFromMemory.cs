@@ -394,14 +394,12 @@ namespace BigIntegerGMP2.Native.NLEngine
                 if (sectionData.AlignedAddress == alignedAddress || unchecked((ulong)PtrAdd(sectionData.Address, sectionData.Size).ToInt64()) > unchecked((ulong)alignedAddress))
                 {
                     // Section shares page with previous
-                    if ((Section.Characteristics & Win.IMAGE_SCN_MEM_DISCARDABLE) == 0 || (sectionData.Characteristics & Win.IMAGE_SCN_MEM_DISCARDABLE) == 0)
-                    {
-                        sectionData.Characteristics = (sectionData.Characteristics | Section.Characteristics) & ~Win.IMAGE_SCN_MEM_DISCARDABLE;
-                    }
+                    if ((Section.Characteristics & Win.IMAGE_SCN_MEM_DISCARDABLE) == 0 ||
+                        (sectionData.Characteristics & Win.IMAGE_SCN_MEM_DISCARDABLE) == 0)
+                        sectionData.Characteristics = (sectionData.Characteristics | Section.Characteristics) &
+                                                      ~Win.IMAGE_SCN_MEM_DISCARDABLE;
                     else
-                    {
                         sectionData.Characteristics |= Section.Characteristics;
-                    }
                     sectionData.Size = PtrSub(PtrAdd(sectionAddress, sectionSize), sectionData.Address);
                     continue;
                 }
@@ -445,8 +443,7 @@ namespace BigIntegerGMP2.Native.NLEngine
             if ((SectionData.Characteristics & Win.IMAGE_SCN_MEM_NOT_CACHED) > 0) protect |= Win.PAGE_NOCACHE;
 
             // change memory access flags
-            uint oldProtect;
-            if (!Win.VirtualProtect(SectionData.Address, SectionData.Size, protect, out oldProtect))
+            if (!Win.VirtualProtect(SectionData.Address, SectionData.Size, protect, out var oldProtect))
                 throw new DllException("Error protecting memory page");
         }
 
@@ -479,16 +476,10 @@ namespace BigIntegerGMP2.Native.NLEngine
         {
             var size = Section.SizeOfRawData;
             if (size == 0)
-            {
                 if ((Section.Characteristics & Win.IMAGE_SCN_CNT_INITIALIZED_DATA) > 0)
-                {
                     size = NTHeaders.OptionalHeader.SizeOfInitializedData;
-                }
                 else if ((Section.Characteristics & Win.IMAGE_SCN_CNT_UNINITIALIZED_DATA) > 0)
-                {
                     size = NTHeaders.OptionalHeader.SizeOfUninitializedData;
-                }
-            }
             return nint.Size == 8 ? (nint)unchecked((long)size) : unchecked((int)size);
         }
 

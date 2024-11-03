@@ -24,7 +24,7 @@ namespace BigIntegerGMP2
         /// <summary>
         /// BigInteger constant representing the value 1.
         /// </summary>
-        public static readonly BigInteger One = new(1);
+        public static readonly BigInteger? One = new(1);
         /// <summary>
         /// BigInteger constant representing the value 2.
         /// </summary>
