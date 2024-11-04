@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BigIntegerGMP2", "BigIntegerGMP2\BigIntegerGMP2.csproj", "{75C3D1ED-164F-4D13-86B7-B3C9B990BA8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7BA935E4-6BA3-4AFF-B69C-9208369B779A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,14 @@ Global
 		{75C3D1ED-164F-4D13-86B7-B3C9B990BA8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{75C3D1ED-164F-4D13-86B7-B3C9B990BA8B}.Release-MemoryLoad|Any CPU.ActiveCfg = Release-MemoryLoad|Any CPU
 		{75C3D1ED-164F-4D13-86B7-B3C9B990BA8B}.Release-MemoryLoad|Any CPU.Build.0 = Release-MemoryLoad|Any CPU
+		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Debug-MemoryLoad|Any CPU.ActiveCfg = Debug-MemoryLoad|Any CPU
+		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Debug-MemoryLoad|Any CPU.Build.0 = Debug-MemoryLoad|Any CPU
+		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Release-MemoryLoad|Any CPU.ActiveCfg = Release|Any CPU
+		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Release-MemoryLoad|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

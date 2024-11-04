@@ -13,8 +13,8 @@ namespace BigIntegerGMP2.Native.Mpfr
         [DllImport("kernel32", CharSet = CharSet.Ansi)]
         private static extern nint GetProcAddress(nint hwnd, string procedureName);
 
-        private static DLLFromMemory _mpirLoader;
-        private static DLLFromMemory _mpfrLoader;
+        private static DLLFromMemory? _mpirLoader = null;
+        private static DLLFromMemory? _mpfrLoader = null;
 
         private static nint hMpirLib = nint.Zero;
         private static nint hMpfrLib = nint.Zero;
@@ -24,47 +24,37 @@ namespace BigIntegerGMP2.Native.Mpfr
 
         #endregion
 
-        #region Settings
-        /// <summary>
-        /// If true, the library will be loaded from memory instead of the file system. (Experimental)
-        /// </summary>
-#if DEBUG_MEMORYLOAD || RELEASE_MEMORYLOAD
-        public static bool LoadFromMemory = true;
-#else
-        public static bool LoadFromMemory  = false;
-#endif
-        #endregion
-
         internal static nint GetMpfrPointer(string name)
         {
-            if (LoadFromMemory)
-            {
-                if(!LoadLibraryMemory("mpir.dll", ref _mpirLoader))
+#if DEBUG_MEMORYLOAD || RELEASE_MEMORYLOAD
+            if (_mpirLoader == null)
+                if (!LoadLibraryMemory("mpir.dll", ref _mpirLoader))
                     return nint.Zero;
+            if (_mpfrLoader == null)
                 if (!LoadLibraryMemory("mpfr.dll", ref _mpfrLoader))
                     return nint.Zero;
 
-                InitializePrecision();
+            InitializePrecision();
 
-                var res = _mpfrLoader.GetPtrFromFuncName(name);
-                if (res == nint.Zero)
-                    throw new Exception($"Function {name} not found in library.");
-                return res;
-            }
-            else
-            {
-                if(!LoadLibraryDisk("mpir.dll", ref hMpirLib))
+            var res = _mpfrLoader.GetPtrFromFuncName(name);
+            if (res == nint.Zero)
+                throw new Exception($"Function {name} not found in library.");
+            return res;
+#else
+            if (hMpirLib == nint.Zero)
+                if (!LoadLibraryDisk("mpir.dll", ref hMpirLib))
                     return nint.Zero;
-                if(!LoadLibraryDisk("mpfr.dll", ref hMpfrLib))
+            if (hMpfrLib == nint.Zero)
+                if (!LoadLibraryDisk("mpfr.dll", ref hMpfrLib))
                     return nint.Zero;
 
-                InitializePrecision();
+            InitializePrecision();
 
-                var res = GetProcAddress(hMpfrLib, name);
-                if (res == nint.Zero)
-                    throw new Exception($"Function {name} not found in library.");
-                return res;
-            }
+            var res = GetProcAddress(hMpfrLib, name);
+            if (res == nint.Zero)
+                throw new Exception($"Function {name} not found in library.");
+            return res;
+#endif
         }
 
         internal static bool LoadLibraryMemory(string libraryName, ref DLLFromMemory dllLoader)

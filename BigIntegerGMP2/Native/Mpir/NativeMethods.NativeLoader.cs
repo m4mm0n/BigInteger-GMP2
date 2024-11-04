@@ -13,7 +13,7 @@ namespace BigIntegerGMP2.Native.Mpir
         [DllImport("kernel32", CharSet = CharSet.Ansi)]
         private static extern nint GetProcAddress(nint hwnd, string procedureName);
 
-        private static DLLFromMemory _mpirLoader;
+        private static DLLFromMemory? _mpirLoader = null;
 
         private static nint hMpirLib = nint.Zero;
 
@@ -22,40 +22,27 @@ namespace BigIntegerGMP2.Native.Mpir
 
         #endregion
 
-        #region Settings
-
-        /// <summary>
-        /// If true, the library will be loaded from memory instead of the file system. (Experimental)
-        /// </summary>
-#if DEBUG_MEMORYLOAD || RELEASE_MEMORYLOAD
-        public static bool LoadFromMemory = true;
-#else
-        public static bool LoadFromMemory  = false;
-#endif
-        #endregion
-
         internal static nint GetMpirPointer(string name)
         {
-            if (LoadFromMemory)
-            {
+#if DEBUG_MEMORYLOAD || RELEASE_MEMORYLOAD
+            if(_mpirLoader == null)
                 if (!LoadLibraryMemory("mpir.dll", ref _mpirLoader))
                     return nint.Zero;
 
-                var res = _mpirLoader.GetPtrFromFuncName($"__g{name}");
-                if (res == nint.Zero)
-                    throw new Exception($"Function {name} not found in library.");
-                return res;
-            }
-            else
-            {
+            var res = _mpirLoader.GetPtrFromFuncName($"__g{name}");
+            if (res == nint.Zero)
+                throw new Exception($"Function {name} not found in library.");
+            return res;
+#else
+            if (_mpirLoader == null)
                 if (!LoadLibraryDisk("mpir.dll", ref hMpirLib))
                     return nint.Zero;
 
-                var res = GetProcAddress(hMpirLib, $"__g{name}");
-                if (res == nint.Zero)
-                    throw new Exception($"Function {name} not found in library.");
-                return res;
-            }
+            var res = GetProcAddress(hMpirLib, $"__g{name}");
+            if (res == nint.Zero)
+                throw new Exception($"Function {name} not found in library.");
+            return res;
+#endif
         }
 
         internal static bool LoadLibraryMemory(string libraryName, ref DLLFromMemory dllLoader)
