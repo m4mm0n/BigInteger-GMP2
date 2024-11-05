@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BigIntegerGMP2", "BigIntege
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{7BA935E4-6BA3-4AFF-B69C-9208369B779A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Addins", "Addins", "{4A3AF586-4537-4EC7-BC16-88C9EB843F47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RSAFactoring", "Addins\RSAFactoring\RSAFactoring.csproj", "{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,9 +35,20 @@ Global
 		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Release-MemoryLoad|Any CPU.ActiveCfg = Release|Any CPU
 		{7BA935E4-6BA3-4AFF-B69C-9208369B779A}.Release-MemoryLoad|Any CPU.Build.0 = Release|Any CPU
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}.Debug-MemoryLoad|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}.Debug-MemoryLoad|Any CPU.Build.0 = Debug|Any CPU
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}.Release-MemoryLoad|Any CPU.ActiveCfg = Release|Any CPU
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E}.Release-MemoryLoad|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D0B2A12-4B17-4644-A51B-ACD9BA71FF4E} = {4A3AF586-4537-4EC7-BC16-88C9EB843F47}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D6C25BB2-4973-4200-999E-C7308CF812DE}

@@ -15,6 +15,17 @@ namespace BigIntegerGMP2
             mpz.abs(result, this);
             return result;
         }
+        /// <summary>
+        /// Returns the absolute value of the current BigInteger instance.
+        /// </summary>
+        /// <param name="value">The BigInteger value to get the absolute value of.</param>
+        /// <returns>A BigInteger representing the absolute value of the current instance.</returns>
+        public static BigInteger Abs(BigInteger value)
+        {
+            var result = new BigInteger();
+            mpz.abs(result._value, value._value);
+            return result;
+        }
 
         /// <summary>
         /// Adds a BigInteger to the current instance.
@@ -478,6 +489,19 @@ namespace BigIntegerGMP2
         public bool IsDivisibleBy(uint x) => mpz.divisible_ui_p(this, x);
 
         /// <summary>
+        /// Determines whether the current <see cref="BigInteger"/> value is even.
+        /// </summary>
+        /// <returns>True if the current value is even; otherwise, false.</returns>
+        public bool IsEven() => !mpz.tstbit(this, 0);
+
+        /// <summary>
+        /// Determines whether the specified <see cref="BigInteger"/> value is even.
+        /// </summary>
+        /// <param name="value">The <see cref="BigInteger"/> value to check.</param>
+        /// <returns>True if the specified value is even; otherwise, false.</returns>
+        public static bool IsEven(BigInteger value) => !mpz.tstbit(value._value, 0);
+
+        /// <summary>
         /// Checks if the current BigInteger instance is a perfect power.
         /// </summary>
         /// <returns>True if the current instance is a perfect power; otherwise, false.</returns>
@@ -505,6 +529,22 @@ namespace BigIntegerGMP2
         /// <param name="divider">An optional divider value for the test, default is 0.</param>
         /// <returns>True if the current instance is a probable prime; otherwise, false.</returns>
         public static bool IsProbablePrime(BigInteger x, int probability = 10, ulong divider = 0) => mpz.probable_prime_p(x, _randState, probability, divider);
+
+        /// <summary>
+        /// Returns the greater of two <see cref="BigInteger"/> values.
+        /// </summary>
+        /// <param name="left">The first <see cref="BigInteger"/> value to compare.</param>
+        /// <param name="right">The second <see cref="BigInteger"/> value to compare.</param>
+        /// <returns>The larger of the two <see cref="BigInteger"/> values.</returns>
+        public static BigInteger Max(BigInteger left, BigInteger right) => left >= right ? left : right;
+
+        /// <summary>
+        /// Returns the smaller of two <see cref="BigInteger"/> values.
+        /// </summary>
+        /// <param name="left">The first <see cref="BigInteger"/> value to compare.</param>
+        /// <param name="right">The second <see cref="BigInteger"/> value to compare.</param>
+        /// <returns>The smaller of the two <see cref="BigInteger"/> values.</returns>
+        public static BigInteger Min(BigInteger left, BigInteger right) => left <= right ? left : right;
 
         /// <summary>
         /// Computes the remainder of the current BigInteger instance divided by another BigInteger.
